@@ -11,6 +11,7 @@ from mediacompressor.core.dependency_manager import install_missing_dependencies
 from mediacompressor.core.ffmpeg_manager import FFmpegManager
 from mediacompressor.core.video_compressor import VideoCompressor
 from mediacompressor.core.image_compressor import ImageCompressor
+from mediacompressor.core.update_checker import check_for_updates
 from mediacompressor.utils.logger import setup_logger
 
 class MainWindow(tk.Tk):
@@ -97,14 +98,25 @@ class MainWindow(tk.Tk):
             btn.pack(fill="x", pady=2, ipady=8)
             self.sidebar_buttons[page_key] = btn
 
-        # System Status at Bottom Sidebar
+        # System & Update Status at Bottom Sidebar
         status_frame = tk.Frame(self.sidebar, bg=Theme.BG_SIDEBAR)
-        status_frame.pack(side="bottom", fill="x", padx=16, pady=16)
+        status_frame.pack(side="bottom", fill="x", padx=12, pady=12)
+
+        self.update_banner = tk.Frame(status_frame, bg=Theme.WARNING, highlightthickness=0)
+        self.lbl_update_txt = tk.Label(
+            self.update_banner,
+            text="🚀 New Version Available!",
+            font=Theme.FONT_SMALL,
+            fg="#000000",
+            bg=Theme.WARNING,
+            anchor="w"
+        )
+        self.lbl_update_txt.pack(fill="x", padx=6, pady=4)
 
         self.lbl_sys_status = tk.Label(
             status_frame, text="Status: Initializing...", font=Theme.FONT_SMALL, fg=Theme.TEXT_MUTED, bg=Theme.BG_SIDEBAR, anchor="w", wrap=180
         )
-        self.lbl_sys_status.pack(fill="x")
+        self.lbl_sys_status.pack(fill="x", pady=(4, 0))
 
         # 2. Main Content Frame Area
         self.content_area = tk.Frame(self.main_container, bg=Theme.BG_DARK)
@@ -120,7 +132,7 @@ class MainWindow(tk.Tk):
         lbl_splash_title.pack(expand=True)
 
     def _boot_dependency_check(self):
-        """Runs dependency and FFmpeg checks in a background thread."""
+        """Runs dependency, FFmpeg, and version update checks in background threads."""
         def _task():
             def _log_cb(msg: str):
                 self.log_queue.put(("BOOT_LOG", msg))
@@ -138,7 +150,13 @@ class MainWindow(tk.Tk):
             else:
                 self.log_queue.put(("BOOT_COMPLETE", False))
 
+        def _update_task():
+            has_update, latest_v, pypi_url = check_for_updates(timeout_sec=4.0)
+            if has_update:
+                self.log_queue.put(("UPDATE_AVAILABLE", (latest_v, pypi_url)))
+
         threading.Thread(target=_task, daemon=True).start()
+        threading.Thread(target=_update_task, daemon=True).start()
 
     def _start_queue_poller(self):
         """Thread-safe queue listener loop using root.after()."""
@@ -175,6 +193,11 @@ class MainWindow(tk.Tk):
                 )
                 self._initialize_pages()
                 self.show_page("image")
+        elif event_type == "UPDATE_AVAILABLE":
+            latest_v, pypi_url = data
+            self.update_banner.pack(fill="x", pady=(0, 6))
+            self.lbl_update_txt.config(text=f"🚀 v{latest_v} Available!\npip install --upgrade mediacompressor")
+            self.logger.info(f"Update Notice: MediaCompressor v{latest_v} is available on PyPI!")
         elif event_type.startswith("VIDEO_"):
             if "video" in self.pages:
                 self.pages["video"].handle_queue_event(event_type, data)
