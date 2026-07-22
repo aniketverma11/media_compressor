@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mediacompressor"
-version = "1.0.1"
+version = "1.0.2"
 description = "Cross-Platform Python Desktop Video & Image Compression Utility"
 readme = "README.md"
 requires-python = ">=3.10"
