@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mediacompressor"
+version = "1.0.0"
+description = "Cross-Platform Python Desktop Video & Image Compression Utility"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "Pillow>=10.0.0",
+    "imageio-ffmpeg>=0.4.9"
+]
+
+[project.scripts]
+mediacompressor = "mediacompressor.cli:main"
+media-compressor = "mediacompressor.cli:main"
