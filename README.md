@@ -2,26 +2,28 @@
 
 A lightweight, modern desktop application built using **Python Tkinter** for fast video and image compression.
 
+🌐 **Official PyPI Package**: [https://pypi.org/project/mediacompressor/](https://pypi.org/project/mediacompressor/)
+
 ---
 
-## 📦 Direct Installation via GitHub & Pip
+## 📦 Official Installation via Pip
 
-Anyone can install the application directly from GitHub using `pip`:
+Install directly from PyPI on any computer:
 
 ```bash
-pip install git+https://github.com/aniketverma11/media_compressor.git
+pip install mediacompressor
 ```
 
-### Upgrading to Latest Version from GitHub
+### Upgrading to Latest Version
 ```bash
-pip install --upgrade git+https://github.com/aniketverma11/media_compressor.git
+pip install --upgrade mediacompressor
 ```
 
 ---
 
 ## 🚀 How to Run
 
-Once installed, launch the application from **any command prompt or terminal window**:
+Once installed, launch the application from **any terminal or command prompt**:
 
 ```bash
 mediacompressor
@@ -41,14 +43,10 @@ python -m mediacompressor
 
 ---
 
-## 💻 Local Development Setup
-
-If you have cloned the repository locally:
+## 💻 Alternative Installation via GitHub
 
 ```bash
-git clone https://github.com/aniketverma11/media_compressor.git
-cd media_compressor
-pip install -e .
+pip install git+https://github.com/aniketverma11/media_compressor.git
 ```
 
 ---
@@ -75,40 +73,3 @@ pip install -e .
 4. **100% Responsive UI**:
    - Thread-safe background execution (`threading.Thread` + `queue.Queue`).
    - Modern Dark Slate theme built entirely with native Tkinter & ttk widgets.
-
----
-
-## 📁 Repository Structure
-
-```text
-media_compressor/
-│
-├── pyproject.toml              # Build metadata & dependency declaration
-├── setup.py                    # Pip installer script & console scripts
-├── README.md                   # Installation & usage documentation
-├── .gitignore                  # Git ignore patterns
-│
-└── mediacompressor/            # Main Python Package
-    ├── __init__.py             # Package version
-    ├── __main__.py             # Python -m launcher
-    ├── cli.py                  # Entry point for console script (mediacompressor)
-    ├── app.py                  # Direct script entry point
-    │
-    ├── ui/                     # User Interface Layer
-    │   ├── main_window.py      # Main layout & thread-safe polling loop
-    │   ├── video_page.py       # Video compressor view
-    │   ├── image_page.py       # Image compressor view
-    │   ├── components.py       # Reusable widgets
-    │   └── theme.py            # Dark slate color palette
-    │
-    ├── core/                   # Processing Engines
-    │   ├── dependency_manager.py
-    │   ├── ffmpeg_manager.py
-    │   ├── video_compressor.py
-    │   └── image_compressor.py
-    │
-    └── utils/                  # Utilities
-        ├── logger.py
-        ├── file_utils.py
-        └── validators.py
-```
