@@ -1,29 +1,27 @@
-# MediaCompressor - Installable Cross-Platform Desktop Utility
+# MediaCompressor - Cross-Platform Desktop Compression Utility
 
 A lightweight, modern desktop application built using **Python Tkinter** for fast video and image compression.
 
 ---
 
-## Installation via Pip
+## 📦 Direct Installation via GitHub & Pip
 
-Install locally in editable mode or as a package:
+Anyone can install the application directly from GitHub using `pip`:
 
 ```bash
-cd D:\aniket\compressor
-pip install -e .
+pip install git+https://github.com/aniketverma11/media_compressor.git
 ```
 
-Or standard pip install:
-
+### Upgrading to Latest Version from GitHub
 ```bash
-pip install D:\aniket\compressor
+pip install --upgrade git+https://github.com/aniketverma11/media_compressor.git
 ```
 
 ---
 
-## How to Run
+## 🚀 How to Run
 
-Once installed, launch the application from **any terminal or command prompt** using:
+Once installed, launch the application from **any command prompt or terminal window**:
 
 ```bash
 mediacompressor
@@ -43,7 +41,19 @@ python -m mediacompressor
 
 ---
 
-## Key Features
+## 💻 Local Development Setup
+
+If you have cloned the repository locally:
+
+```bash
+git clone https://github.com/aniketverma11/media_compressor.git
+cd media_compressor
+pip install -e .
+```
+
+---
+
+## ✨ Key Features
 
 1. **Video Compression**:
    - Accepts MP4, MKV, MOV, AVI, WebM, and FLV files.
@@ -68,17 +78,18 @@ python -m mediacompressor
 
 ---
 
-## Package Directory Structure
+## 📁 Repository Structure
 
 ```text
-D:\aniket\compressor\
+media_compressor/
 │
 ├── pyproject.toml              # Build metadata & dependency declaration
-├── setup.py                    # Pip setup installer script & console scripts
-├── README.md                   # Project documentation
+├── setup.py                    # Pip installer script & console scripts
+├── README.md                   # Installation & usage documentation
+├── .gitignore                  # Git ignore patterns
 │
 └── mediacompressor/            # Main Python Package
-    ├── __init__.py
+    ├── __init__.py             # Package version
     ├── __main__.py             # Python -m launcher
     ├── cli.py                  # Entry point for console script (mediacompressor)
     ├── app.py                  # Direct script entry point
@@ -88,9 +99,9 @@ D:\aniket\compressor\
     │   ├── video_page.py       # Video compressor view
     │   ├── image_page.py       # Image compressor view
     │   ├── components.py       # Reusable widgets
-    │   └── theme.py            # Color palette & fonts
+    │   └── theme.py            # Dark slate color palette
     │
-    ├── core/                   # Core Engines
+    ├── core/                   # Processing Engines
     │   ├── dependency_manager.py
     │   ├── ffmpeg_manager.py
     │   ├── video_compressor.py
